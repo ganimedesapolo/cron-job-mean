@@ -1,0 +1,23 @@
+<form *ngIf="showAddTask"   class="add-form"  (ngSubmit)="onSubmit()" >
+    <div class="form-control">
+      <label for="text">Cron expression</label>
+      <input
+        type="text"
+        name="crontext"
+        [(ngModel)]="crontext"
+        id="crontext"
+        placeholder="Add Task"
+      />
+    </div>
+    <div class="form-control">
+      <label for="day">URL</label>
+      <input
+        type="text"
+        name="url"
+        [(ngModel)]="url"
+        id="url"
+        placeholder="Add a URL"
+      />
+    </div>
+    <input type="submit" value="Save Task" class="btn btn-block" />
+  </form>

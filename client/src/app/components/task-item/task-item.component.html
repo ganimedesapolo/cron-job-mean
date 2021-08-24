@@ -1,0 +1,11 @@
+<div class="task"
+>
+<h3>  {{task.crontext}}
+     <fa-icon 
+      (click) = "onDelete(task)"
+      [ngStyle]="{'color':'red'}" 
+      [icon] ="faTimes" 
+       ></fa-icon>
+    </h3>
+<p>{{task.url}} </p>
+</div>
