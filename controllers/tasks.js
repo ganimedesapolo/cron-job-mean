@@ -53,12 +53,12 @@ exports.addTasks = async (req, res, next) => {
 
         
   ///to do ping promise first time and send with taks data for render
-     ping.promise.probe(task.url) .then(function (data) {
+   ////  ping.promise.probe(task.url) .then(function (data) {
        return res.status(201).json({
         success: true,
         data: {task},
-        resPing : data
-   });    
+  ////      resPing : data
+////   });    
 });
    
 
