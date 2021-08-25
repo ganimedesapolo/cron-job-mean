@@ -45,14 +45,24 @@ exports.addTasks = async (req, res, next) => {
         const task = await Task.create(req.body)
 
              
+         
+
    ///////programming ping with cron
   cron.schedule(task.crontext, () => {
     console.log("-------------------------------------------------------"+Date().toLocaleString()+"-------------------------------------------------------------------------------");
-    const datas  = await ping.promise.probe(task.url);
-    console.log(datas);
-    ///  ping.promise.probe(task.url).then(function (data) {
-    ///  console.log(data);
-   //// });
+    
+  //    ping.promise.probe(task.url).then(function (data) {
+  //     console.log(data);
+  //  });
+
+  ping.promise.probe(task.url, {
+    timeout: 10,
+    extra: ['-i', '2'],
+}).then(function (reso) {
+    console.log(reso);
+});
+
+
 });
 
 
