@@ -3,7 +3,6 @@ const Task = require('../models/Task')
 var cron = require('node-cron');
 ///var ping = require('ping');
 const scrapeIt = require("scrape-it")
-const got = require('got');
 const { exists } = require('../models/Task');
 
 
