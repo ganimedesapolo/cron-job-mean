@@ -45,16 +45,11 @@ exports.addTasks = async (req, res, next) => {
         const task = await Task.create(req.body)
       
         
-        scrapeIt("https://ionicabizau.net", {
-    title: ".header h1"
-  , desc: ".header h2"
-  , avatar: {
-        selector: ".header img"
-      , attr: "src"
-    }
-}).then(({ data, response }) => {
-    console.log(`Status Code: ${response.statusCode}`)
-    console.log(data)
+        scrapeIt(task.url, {
+        headers: "head"
+       }).then(({ data, response }) => {
+        console.log(`Status Code: ${response.statusCode}`)
+        console.log(data)
    
     return res.status(201).json({
       success: true,
