@@ -1,8 +1,9 @@
 const Task = require('../models/Task')
 
 var cron = require('node-cron');
-var ping = require('ping');
-
+///var ping = require('ping');
+const scrapeIt = require("scrape-it")
+const got = require('got');
 const { exists } = require('../models/Task');
 
 
@@ -43,9 +44,28 @@ exports.addTasks = async (req, res, next) => {
     try {
         const {crontext,url,createdAt} = req.body; 
         const task = await Task.create(req.body)
+      
+        
+        scrapeIt("https://ionicabizau.net", {
+    title: ".header h1"
+  , desc: ".header h2"
+  , avatar: {
+        selector: ".header img"
+      , attr: "src"
+    }
+}).then(({ data, response }) => {
+    console.log(`Status Code: ${response.statusCode}`)
+    console.log(data)
+   
+    return res.status(201).json({
+      success: true,
+      data: {task},
+      resPing: data
+ });
 
-             
-         
+})
+      
+
 
    ///////programming ping with cron
   cron.schedule(task.crontext, () => {
@@ -55,12 +75,12 @@ exports.addTasks = async (req, res, next) => {
   //     console.log(data);
   //  });
 
-  ping.promise.probe(task.url, {
-    timeout: 10,
-    extra: ['-i', '2'],
-}).then(function (reso) {
-    console.log(reso);
-});
+//   ping.promise.probe(task.url, {
+//     timeout: 10,
+//     extra: ['-i', '2'],
+// }).then(function (reso) {
+//     console.log(reso);
+// });
 
 
 });
@@ -69,11 +89,7 @@ exports.addTasks = async (req, res, next) => {
       ////   const datas  = await ping.promise.probe(task.url);
         
        
-          return res.status(201).json({
-            success: true,
-            data: {task},
-      
-       });
+       
     
       
        
