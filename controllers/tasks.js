@@ -47,10 +47,12 @@ exports.addTasks = async (req, res, next) => {
              
    ///////programming ping with cron
   cron.schedule(task.crontext, () => {
-    console.log(Date().toLocaleString()+"-----------------------------------------------------------------------------------------------------------------------------------------");
-  ping.promise.probe(task.url).then(function (data) {
-      console.log(data);
-    });
+    console.log("-------------------------------------------------------"+Date().toLocaleString()+"-------------------------------------------------------------------------------");
+    const datas  = await ping.promise.probe(task.url);
+    console.log(datas);
+    ///  ping.promise.probe(task.url).then(function (data) {
+    ///  console.log(data);
+   //// });
 });
 
 
