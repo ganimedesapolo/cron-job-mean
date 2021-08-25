@@ -2,6 +2,7 @@ const Task = require('../models/Task')
 
 var cron = require('node-cron');
 var ping = require('ping');
+
 const { exists } = require('../models/Task');
 
 
@@ -43,13 +44,16 @@ exports.addTasks = async (req, res, next) => {
         const {crontext,url,createdAt} = req.body; 
         const task = await Task.create(req.body)
 
-        ping.promise.probe(task.url).then(function (datas) {
+
+         const datas  = await ping.promise.probe(task.url);
+        
+       
           return res.status(201).json({
             success: true,
             data: {task},
             resPing : datas
        });
-        });
+    
        
        
    ///////programming ping with cron
